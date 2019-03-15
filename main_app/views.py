@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView 
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import boto3
 from .models import Company, Meal, Photo
@@ -15,10 +19,16 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def companies_index(request):
-  companies = Company.objects.all()
+  companies = Company.objects.filter(user=request.user)
+  # You could also retrieve the logged in user's cats like this
+  # cats = request.user.cat_set.all()
   return render(request, 'companies/index.html', { 'companies': companies })
+  # companies = Company.objects.all()
+  # return render(request, 'companies/index.html', { 'companies': companies })
 
+@login_required
 def companies_detail(request, company_id):
     company = Company.objects.get(id=company_id)
     if company.role == 'FoodGiver':
@@ -33,20 +43,31 @@ def companies_detail(request, company_id):
         'meals': company_meals, 'req_meals': req_meals
     })
 
-class CompanyCreate(CreateView):
+class CompanyCreate(LoginRequiredMixin, CreateView):
   model = Company
-  fields = '__all__'
-  success_url = '/companies/'
+  fields = ['role', 'email', 'logo', 'website']
+  
+  # This method is called when a valid
+  # cat form has being submitted
+  def form_valid(self, form):
+    # Assign the logged in user
+    form.instance.user = self.request.user
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)  
+  # model = Company
+  # fields = '__all__'
+  # success_url = '/companies/'
 
-class CompanyUpdate(UpdateView):
+class CompanyUpdate(LoginRequiredMixin, UpdateView):
   model = Company
   fields = ['name', 'role', 'email', 'logo', 'website']
   success_url = '/companies/'
 
-class CompanyDelete(DeleteView):
+class CompanyDelete(LoginRequiredMixin, DeleteView):
   model = Company
   success_url = '/companies/'
 
+@login_required
 def add_meal(request, company_id):
   # create the ModelForm using the data in request.POST
   meal_form = MealForm(request.POST)
@@ -59,10 +80,12 @@ def add_meal(request, company_id):
     new_meal.save()
   return redirect('detail', company_id=company_id)
 
+@login_required
 def remove_meal(request, company_id, meal_id):
     Meal.objects.filter(id=meal_id).delete()
     return redirect('detail', company_id=company_id)
 
+@login_required
 def request_meal(request, company_id, meal_id):
   print('meal id ', meal_id)
   meal = Meal.objects.get(id=meal_id)
@@ -72,6 +95,7 @@ def request_meal(request, company_id, meal_id):
   meal.save()
   return redirect('detail', company_id=company_id)
 
+@login_required
 def cancel_req_meal(request, company_id, meal_id):
   print('meal id ', meal_id)
   meal = Meal.objects.get(id=meal_id)
@@ -81,6 +105,7 @@ def cancel_req_meal(request, company_id, meal_id):
   meal.save()
   return redirect('detail', company_id=company_id)
 
+@login_required
 def add_photo(request, company_id):
 	# photo-file was the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
@@ -99,3 +124,22 @@ def add_photo(request, company_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', company_id=company_id)
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      # This will add the user to the database
+      user = form.save()
+      # This is how we log a user in via code
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid credentials - try again'
+  # A bad POST or a GET request, so render signup.html with an empty form
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
