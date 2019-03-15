@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Company List</h1>
+
+{% for company in companies %}
+  <a href="{% url 'detail' company.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ company.name }}</span>
+            <p>company role: {{ company.role }}</p>
+            <p>e-mail: {{ company.email }}</p>
+            <p>logo: {{ company.logo }}</p>
+            <p>website: {{ company.website }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
