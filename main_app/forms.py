@@ -5,3 +5,5 @@ class MealForm(ModelForm):
   class Meta:
     model = Meal
     fields = ['description', 'available_on']
+
+

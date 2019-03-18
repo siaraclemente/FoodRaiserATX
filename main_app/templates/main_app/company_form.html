@@ -3,7 +3,7 @@
 {% if object %}
     <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
 {% else %}
-    <h1>Add Company</h1>
+    <h1>Registration</h1>
 {% endif %}
 
 <form action="" method="POST">
@@ -11,7 +11,7 @@
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" value="Submit!" class="btn">
+    <input type="submit" value="Register" class="btn">
 </form>
 
 {% endblock %}
