@@ -31,7 +31,7 @@ def about(request):
 @login_required
 def companies_detail(request):
     company = Company.objects.get(user = request.user)
-    print(company)
+    print('company: ', company)
     if company.role == 'FoodGiver':
       company_meals = Meal.objects.filter(company_id=company.id)
       req_meals = None
