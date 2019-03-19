@@ -22,11 +22,13 @@
                     <li><a href="/" class="left brand-logo">&nbsp;&nbsp;FoodRaiserATX</a></li>
                 </ul>
                 <ul class="right">
-                    <li><a href="/about">About</a></li>
+                    
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'company_create' %}">Add a Company</a></li>
-                        <li><a href="{% url 'index' %}">View All Companies</a></li>
+                        <!-- <li><a href="{% url 'company_create' %}">Register</a></li> -->
+                        <li><a href="/about">About</a></li>
+                        <li><a href="{% url 'detail' %}">My Company</a></li>
                         <li><a href="{% url 'logout' %}">Log Out</a></li>
+
                     {% else %}
                         <li><a href="{% url 'signup' %}">Sign Up</a></li>
                         <li><a href="{% url 'login' %}">Log In</a></li>

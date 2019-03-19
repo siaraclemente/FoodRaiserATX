@@ -7,11 +7,13 @@
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">{{ company.name }}</span>
-        <p>company role: {{ company.role }}</p>
-        <p>e-mail: {{ company.email }}</p>
-        <p>logo: {{ company.logo }}</p>
-        <p>website: {{ company.website }}</p>
+        <span class="card-title">
+        Company Name: {{ company.name }}</span>
+        <p>Company Role: {{ company.role }}</p>
+        <p>Contact Email: {{ company.email }}</p>
+        <p>Business Phone: {{ company.phone }}</p>
+        <p>Address: {{ company.address }}</p>
+        <p>Website: {{ company.website }}</p>
       </div>
       <div class="card-action">
         <a href="{% url 'company_update' company.id %}">Edit</a>
@@ -23,7 +25,7 @@
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
-    <form action="{% url 'add_photo' company.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    <form action="{% url 'add_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
       {% csrf_token %}
       <input type="file" name="photo-file">
       <br><br>
@@ -32,7 +34,7 @@
   </div>      
   <div class="col s6">
     {% if company.role == 'FoodGiver'%}
-      <form action="{% url 'add_meal' company.id %}" method="post">
+      <form action="{% url 'add_meal' %}" method="post">
         {% csrf_token %}
         {{ meal_form.as_p }}
         <input type="submit" class="btn" value="Add Meal">
@@ -49,7 +51,7 @@
               <td>{{meal.description}}</td>
               <td>{{meal.available_on}}</td>
               <td>
-              <form action="{% url 'cancel_req_meal' company.id meal.id %}" method="post">
+              <form action="{% url 'cancel_req_meal' meal.id %}" method="post">
                 {% csrf_token %}
                 <input type="submit" class="btn-flat" value="Cancel Request">
               </form>
@@ -72,12 +74,12 @@
               <td>{{meal.available_on}}</td>
               <td>
               {% if company.role == 'FoodGiver'%}  
-                <form action="{% url 'remove_meal' company.id meal.id %}" method="post">
+                <form action="{% url 'remove_meal' meal.id %}" method="post">
                   {% csrf_token %}
                   <input type="submit" class="btn-flat" value="Remove Meal">
                 </form>
               {% else %}
-                <form action="{% url 'request_meal' company.id meal.id %}" method="post">
+                <form action="{% url 'request_meal' meal.id %}" method="post">
                   {% csrf_token %}
                   <input type="submit" class="btn-flat" value="Request Meal">
                 </form>
