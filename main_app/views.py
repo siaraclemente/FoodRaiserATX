@@ -31,13 +31,13 @@ def about(request):
 @login_required
 def companies_detail(request):
     company = Company.objects.get(user = request.user)
-    print(company)
+    print('company: ', company)
     if company.role == 'FoodGiver':
       company_meals = Meal.objects.filter(company_id=company.id)
       req_meals = None
     else:
       company_meals = Meal.objects.filter(available=True)
-      req_meals = Meal.objects.filter(requested_by = company_id)
+      req_meals = Meal.objects.filter(requested_by = company.id)
     meal_form = MealForm()
     return render(request, 'companies/detail.html', {
         'company': company, 'meal_form': meal_form, 
