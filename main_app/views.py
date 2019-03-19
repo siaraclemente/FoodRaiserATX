@@ -19,18 +19,19 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-@login_required
-def companies_index(request):
-  companies = Company.objects.filter(user=request.user)
-  # You could also retrieve the logged in user's cats like this
-  # cats = request.user.cat_set.all()
-  return render(request, 'companies/index.html', { 'companies': companies })
-  # companies = Company.objects.all()
-  # return render(request, 'companies/index.html', { 'companies': companies })
+# @login_required
+# def companies_index(request):
+#   companies = Company.objects.filter(user=request.user)
+#   # You could also retrieve the logged in user's cats like this
+#   # cats = request.user.cat_set.all()
+#   return render(request, 'companies/index.html', { 'companies': companies })
+#   # companies = Company.objects.all()
+#   # return render(request, 'companies/index.html', { 'companies': companies })
 
 @login_required
-def companies_detail(request, company_id):
-    company = Company.objects.get(id=company_id)
+def companies_detail(request):
+    company = Company.objects.get(user = request.user)
+    print(company)
     if company.role == 'FoodGiver':
       company_meals = Meal.objects.filter(company_id=company.id)
       req_meals = None
@@ -43,9 +44,10 @@ def companies_detail(request, company_id):
         'meals': company_meals, 'req_meals': req_meals
     })
 
+
 class CompanyCreate(LoginRequiredMixin, CreateView):
   model = Company
-  fields = ['role', 'email', 'logo', 'website']
+  fields = ['role', 'name', 'email', 'phone', 'address', 'website']
   
   # This method is called when a valid
   # cat form has being submitted
@@ -56,7 +58,7 @@ class CompanyCreate(LoginRequiredMixin, CreateView):
     return super().form_valid(form)  
   # model = Company
   # fields = '__all__'
-  # success_url = '/companies/'
+  success_url = '/companies/'
 
 class CompanyUpdate(LoginRequiredMixin, UpdateView):
   model = Company
@@ -68,7 +70,8 @@ class CompanyDelete(LoginRequiredMixin, DeleteView):
   success_url = '/companies/'
 
 @login_required
-def add_meal(request, company_id):
+def add_meal(request):
+  company = Company.objects.get(user = request.user)
   # create the ModelForm using the data in request.POST
   meal_form = MealForm(request.POST)
   # validate the form
@@ -76,37 +79,40 @@ def add_meal(request, company_id):
     # don't save the form to the db until it
     # has the company_id assigned
     new_meal = meal_form.save(commit=False)
-    new_meal.company_id = company_id
+    new_meal.company_id = company.id
     new_meal.save()
-  return redirect('detail', company_id=company_id)
+  return redirect('detail')
 
 @login_required
-def remove_meal(request, company_id, meal_id):
+def remove_meal(request, meal_id):
+    company = Company.objects.get(user = request.user)
     Meal.objects.filter(id=meal_id).delete()
-    return redirect('detail', company_id=company_id)
+    return redirect('detail')
 
 @login_required
-def request_meal(request, company_id, meal_id):
+def request_meal(request, meal_id):
+  company = Company.objects.get(user = request.user)
   print('meal id ', meal_id)
   meal = Meal.objects.get(id=meal_id)
   print('meal desc: ', meal)
-  meal.requested_by = company_id
+  meal.requested_by = company.id
   meal.available = False
   meal.save()
-  return redirect('detail', company_id=company_id)
+  return redirect('detail')
 
 @login_required
-def cancel_req_meal(request, company_id, meal_id):
+def cancel_req_meal(request, meal_id):
   print('meal id ', meal_id)
   meal = Meal.objects.get(id=meal_id)
   print('meal desc: ', meal)
   meal.requested_by = 0
   meal.available = True
   meal.save()
-  return redirect('detail', company_id=company_id)
+  return redirect('detail')
 
 @login_required
-def add_photo(request, company_id):
+def add_photo(request):
+    company = Company.objects.get(user = request.user)
 	# photo-file was the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
@@ -119,11 +125,11 @@ def add_photo(request, company_id):
             # build the full url string
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
             # we can assign to company_id or company (if you have a company object
-            photo = Photo(url=url, company_id=company_id)
+            photo = Photo(url=url, company_id=company.id)
             photo.save()
         except:
             print('An error occurred uploading file to S3')
-    return redirect('detail', company_id=company_id)
+    return redirect('detail')
 
 def signup(request):
   error_message = ''
@@ -136,9 +142,9 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('index')
+      return redirect('company_create')
     else:
-      error_message = 'Invalid credentials - try again'
+      error_message = 'Invalid credentials - Please try again'
   # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}

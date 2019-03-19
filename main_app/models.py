@@ -14,9 +14,11 @@ class Company(models.Model):
         choices = ROLES,
         default = ROLES[0][1]
     )
+
     name = models.CharField(max_length=100) #this will be deleted to use django User name
     email = models.CharField(max_length=100)
-    logo = models.CharField(max_length=200)
+    phone = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
     website = models.CharField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
