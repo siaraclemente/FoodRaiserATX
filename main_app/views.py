@@ -37,7 +37,7 @@ def companies_detail(request):
       req_meals = None
     else:
       company_meals = Meal.objects.filter(available=True)
-      req_meals = Meal.objects.filter(requested_by = company_id)
+      req_meals = Meal.objects.filter(requested_by = company.id)
     meal_form = MealForm()
     return render(request, 'companies/detail.html', {
         'company': company, 'meal_form': meal_form, 
