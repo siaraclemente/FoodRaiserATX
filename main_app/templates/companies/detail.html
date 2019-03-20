@@ -17,7 +17,6 @@
       </div>
       <div class="card-action">
         <a href="{% url 'company_update' company.id %}">Edit</a>
-        <a href="{% url 'company_delete' company.id %}">Delete</a>
       </div>
     </div>
     {% for photo in company.photo_set.all %}

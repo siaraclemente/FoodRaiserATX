@@ -65,10 +65,6 @@ class CompanyUpdate(LoginRequiredMixin, UpdateView):
   fields = ['role', 'name', 'email', 'phone', 'address', 'website']
   success_url = '/companies/'
 
-class CompanyDelete(LoginRequiredMixin, DeleteView):
-  model = Company
-  success_url = '/companies/'
-
 @login_required
 def add_meal(request):
   if request.method == 'POST':
