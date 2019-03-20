@@ -31,6 +31,7 @@ class Company(models.Model):
 class Meal(models.Model):
     description = models.CharField(max_length=200)
     available_on = models.DateField('availability date')
+    available_time = models.TimeField('pickup')
     available = models.BooleanField(default=True)
     requested_by = models.IntegerField(default=0)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

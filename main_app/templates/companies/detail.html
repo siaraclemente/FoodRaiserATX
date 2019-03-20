@@ -35,8 +35,12 @@
   <div class="col s6">
     {% if company.role == 'FoodGiver'%}
       <form action="{% url 'add_meal' %}" method="post">
-        {% csrf_token %}
-        {{ meal_form.as_p }}
+          {% csrf_token %}
+          {{ meal_form.as_p }}
+          <tr>
+              <td>{{meal.description}}</td>
+              <td>{{meal.available_on}}</td>
+          </tr>
         <input type="submit" class="btn" value="Add Meal">
       </form>
       <br>
@@ -50,6 +54,7 @@
             <tr>
               <td>{{meal.description}}</td>
               <td>{{meal.available_on}}</td>
+              <td>{{meal.available_time}}</td>
               <td>
               <form action="{% url 'cancel_req_meal' meal.id %}" method="post">
                 {% csrf_token %}
@@ -72,6 +77,7 @@
             <tr>
               <td>{{meal.description}}</td>
               <td>{{meal.available_on}}</td>
+              <td>{{meal.available_time}}</td>
               <td>
               {% if company.role == 'FoodGiver'%}  
                 <form action="{% url 'remove_meal' meal.id %}" method="post">
