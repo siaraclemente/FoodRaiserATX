@@ -10,8 +10,8 @@ import boto3
 from .models import Company, Meal, Photo
 from .forms import MealForm
 
-S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
-BUCKET = 'anycollector'
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'foodraiseratx'
 
 def home(request):
   return render(request, 'home.html')
