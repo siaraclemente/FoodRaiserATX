@@ -26,7 +26,7 @@ Nonprofits who believe that no person should be left unfed, and are on a mission
 * Heroku
 
 ### Issues We Ran Into:
-* TimeField formats on ModelForm regarding AddMeal, must be written as Militaty Time
+* Time/Date formats on ModelForm regarding AddMeal, must be written a specific way, or 'Add Meal' will not work
 * Uploading photos, does not work on live link
 * GitHub/Merging Conflicts
 * MVP Requirements
