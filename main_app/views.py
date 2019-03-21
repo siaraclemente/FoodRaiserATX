@@ -62,7 +62,11 @@ class CompanyCreate(LoginRequiredMixin, CreateView):
 
 class CompanyUpdate(LoginRequiredMixin, UpdateView):
   model = Company
-  fields = ['role', 'name', 'email', 'phone', 'address', 'website']
+  fields = ['name', 'role', 'email', 'phone', 'website']
+  success_url = '/companies/'
+
+class CompanyDelete(LoginRequiredMixin, DeleteView):
+  model = Company
   success_url = '/companies/'
 
 @login_required
