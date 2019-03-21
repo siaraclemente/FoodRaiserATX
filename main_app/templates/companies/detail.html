@@ -60,7 +60,6 @@
           {% endfor %}
         </tbody>
       </table>
-
       <br>
     {% endif %}
       <table class="striped">
@@ -69,7 +68,6 @@
         </thead>
         <tbody>
           {% for meal in meals %}
-            <tr>
               <td>{{meal.description}}</td>
               <td>{{meal.available_on}}</td>
               <td>
@@ -93,5 +91,4 @@
   </div>
 </div>
 <hr>
-
 {% endblock %}
