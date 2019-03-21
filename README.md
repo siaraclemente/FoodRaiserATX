@@ -1,5 +1,5 @@
 # FoodRaiserATX
-![FoodRaiserATX Home Page]https://i.imgur.com/icQNJg1.jpg)
+![FoodRaiserATX Home Page](https://i.imgur.com/icQNJg1.jpg)
 
 ### We Made This: 
 [Check it out here!]()
