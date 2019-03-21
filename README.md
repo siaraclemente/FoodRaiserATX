@@ -2,7 +2,7 @@
 ![FoodRaiserATX Home Page](https://i.imgur.com/icQNJg1.jpg)
 
 ### What We Made: 
-[Check it out here!]()
+[Check it out here!](https://foodraiseratx.herokuapp.com)
 
 ### What is It?: 
 An app that connects food businesses to nonprofit organizations thus abiding with laws to feed the hunger population.
@@ -26,7 +26,8 @@ Nonprofits who believe that no person should be left unfed, and are on a mission
 * Heroku
 
 ### Issues We Ran Into:
-* TimeField on ModelForm regarding AddMeal.
+* TimeField formats on ModelForm regarding AddMeal, must be written as Militaty Time
+* Uploading photos, does not work on live link
 * GitHub/Merging Conflicts
 * MVP Requirements
 

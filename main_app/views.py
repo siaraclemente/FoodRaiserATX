@@ -10,8 +10,8 @@ import boto3
 from .models import Company, Meal, Photo
 from .forms import MealForm
 
-S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
-BUCKET = 'anycollector'
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'foodraiseratx'
 
 def home(request):
   return render(request, 'home.html')
@@ -62,7 +62,11 @@ class CompanyCreate(LoginRequiredMixin, CreateView):
 
 class CompanyUpdate(LoginRequiredMixin, UpdateView):
   model = Company
-  fields = ['role', 'name', 'email', 'phone', 'address', 'website']
+  fields = ['name', 'role', 'email', 'phone', 'website']
+  success_url = '/companies/'
+
+class CompanyDelete(LoginRequiredMixin, DeleteView):
+  model = Company
   success_url = '/companies/'
 
 @login_required
@@ -80,6 +84,7 @@ def add_meal(request):
     else:
       msg = 'Errors %s' % meal_form.errors.as_text()
       print(msg)
+      return redirect('detail')
 
 @login_required
 def remove_meal(request, meal_id):
