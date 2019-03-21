@@ -22,7 +22,7 @@ Nonprofits who believe that no person should be left unfed, and are on a mission
 * Complete CUD
 * AWS/Boto3
 * Django's Built-In Authentication
-* JS
+* JavaScript
 * HTML/CSS/Materialize
 * AWS/Boto3
 * Heroku
