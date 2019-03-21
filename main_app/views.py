@@ -77,6 +77,9 @@ def add_meal(request):
       new_meal.company_id = company.id
       new_meal.save()
       return redirect('detail')
+    else:
+      msg = 'Errors %s' % meal_form.errors.as_text()
+      print(msg)
 
 @login_required
 def remove_meal(request, meal_id):
