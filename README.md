@@ -1,7 +1,7 @@
 # FoodRaiserATX
-![FoodRaiserATX Home Page]()
+![FoodRaiserATX Home Page](https://i.imgur.com/icQNJg1.jpg)
 
-### We Made This: 
+### What We Made: 
 [Check it out here!]()
 
 ### What is It?: 
@@ -11,11 +11,9 @@ An app that connects food businesses to nonprofit organizations thus abiding wit
 Connecting surplus food with our neighbors in need.
 
 ### This is For: 
-Restaurants, Catering Businesses, etc. with an excess amount of food who hate to see it go to waste.
+Restaurants, Catering Businesses, Food Vendors, etc. with an excess amount of food who hate to see it go to waste.
 
 Nonprofits who believe that no person should be left unfed, and are on a mission to end hunger.
-
-### Instructions: 
 
 ### What It Has/What Was Used:
 * Python/Django/PostgreSQL
@@ -28,12 +26,17 @@ Nonprofits who believe that no person should be left unfed, and are on a mission
 * Heroku
 
 ### Issues We Ran Into:
-* 
+* TimeField on ModelForm regarding AddMeal.
+* GitHub/Merging Conflicts
+* MVP Requirements
 
-### Initial Idea:
-![Wireframe]()
+### What's the Pitch?: 
+[Pitch Deck](https://docs.google.com/presentation/d/1-6OqntLFfdrx6nVp4mRhuVxSXJuNfktb_uYloKOpJ44/edit?usp=sharing)
 
-### Our Plan:
+### Wireframe:
+![Wireframe](https://i.imgur.com/t2iyENd.jpg)
+
+### Trello Board:
 [Our Trello](https://trello.com/b/K6kJmv9J/foodraiseratx)
 
 ### Future Plans:
