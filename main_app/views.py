@@ -62,26 +62,24 @@ class CompanyCreate(LoginRequiredMixin, CreateView):
 
 class CompanyUpdate(LoginRequiredMixin, UpdateView):
   model = Company
-  fields = ['name', 'role', 'email', 'logo', 'website']
-  success_url = '/companies/'
-
-class CompanyDelete(LoginRequiredMixin, DeleteView):
-  model = Company
+  fields = ['role', 'name', 'email', 'phone', 'address', 'website']
   success_url = '/companies/'
 
 @login_required
 def add_meal(request):
-  company = Company.objects.get(user = request.user)
-  # create the ModelForm using the data in request.POST
-  meal_form = MealForm(request.POST)
-  # validate the form
-  if meal_form.is_valid():
-    # don't save the form to the db until it
-    # has the company_id assigned
-    new_meal = meal_form.save(commit=False)
-    new_meal.company_id = company.id
-    new_meal.save()
-  return redirect('detail')
+  if request.method == 'POST':
+    company = Company.objects.get(user = request.user)
+    meal_form = MealForm(request.POST)
+    print(meal_form)
+    if meal_form.is_valid():
+      new_meal = meal_form.save(commit=False)
+      print(company)
+      new_meal.company_id = company.id
+      new_meal.save()
+      return redirect('detail')
+    else:
+      msg = 'Errors %s' % meal_form.errors.as_text()
+      print(msg)
 
 @login_required
 def remove_meal(request, meal_id):
