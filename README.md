@@ -30,9 +30,10 @@ Nonprofits who believe that no person should be left unfed, and are on a mission
 ### Issues We Ran Into:
 * 
 
-### What's the Pitch?: [Pitch Deck](https://docs.google.com/presentation/d/1-6OqntLFfdrx6nVp4mRhuVxSXJuNfktb_uYloKOpJ44/edit?usp=sharing)
+### What's the Pitch?: 
+[Pitch Deck](https://docs.google.com/presentation/d/1-6OqntLFfdrx6nVp4mRhuVxSXJuNfktb_uYloKOpJ44/edit?usp=sharing)
 
-### Initial Idea:
+### Wireframe:
 ![Wireframe]()
 
 ### Our Plan:
