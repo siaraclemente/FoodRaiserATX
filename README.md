@@ -34,7 +34,7 @@ Nonprofits who believe that no person should be left unfed, and are on a mission
 [Pitch Deck](https://docs.google.com/presentation/d/1-6OqntLFfdrx6nVp4mRhuVxSXJuNfktb_uYloKOpJ44/edit?usp=sharing)
 
 ### Wireframe:
-![Wireframe]()
+![Wireframe](https://i.imgur.com/t2iyENd.jpg)
 
 ### Trello Board:
 [Our Trello](https://trello.com/b/K6kJmv9J/foodraiseratx)
